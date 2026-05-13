@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roblox Pass Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .box {
+      width: 90%;
+      max-width: 420px;
+      background: #f5f5f5;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      text-align: center;
+      color: #111;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    .btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      width: 35px;
+      height: 35px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .finish {
+      width: 100%;
+      margin-top: 20px;
+      background: #0066ff;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .msg {
+      margin-top: 18px;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h1>Roblox Pass Manager</h1>
+
+  <input type="text" id="user" placeholder="Usuario de Roblox">
+
+  <div id="items"></div>
+
+  <button class="finish" onclick="finish()">TERMINAR</button>
+
+  <div class="msg" id="msg">
+    Tu solicitud fue enviada correctamente.
+  </div>
+</div>
+
+<script>
+  const passes = [
+    "80 Robux",
+    "400 Robux",
+    "800 Robux",
+    "1700 Robux",
+    "4500 Robux"
+  ];
+
+  const container = document.getElementById("items");
+  const counts = {};
+
+  passes.forEach(name => {
+    counts[name] = 0;
+
+    const div = document.createElement("div");
+    div.className = "item";
+
+    div.innerHTML = `
+      <span>${name} x <b id="${name}">0</b></span>
+      <button class="btn" onclick="add('${name}')">+</button>
+    `;
+
+    container.appendChild(div);
+  });
+
+  function add(name) {
+    if (counts[name] < 10) {
+      counts[name]++;
+      document.getElementById(name).innerText = counts[name];
+    }
+  }
+
+  function finish() {
+    const user = document.getElementById("user").value;
+
+    if (!user) {
+      alert("Escribe un usuario");
+      return;
+    }
+
+    document.getElementById("msg").style.display = "block";
+  }
+</script>
+
+</body>
+  </html>
